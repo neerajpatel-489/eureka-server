@@ -1,0 +1,16 @@
+server:
+  port: 8761
+  servlet:
+    context-path: /eureka-server
+spring:
+  application:
+    name: eureka-server
+    version: 0.1
+    banner:
+      location: classpath:banner.txt
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
