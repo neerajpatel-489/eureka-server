@@ -1,0 +1,335 @@
+Configuration instructions
+Eureka server configuration
+
+
+################server Configuration associated with client####################33
+ # Open self-protection mode. No matter what the situation, the server will maintain a certain number of services. Avoid network problems between client and server, and a large number of services are cleared.
+eureka.server.enable-self-preservation=true
+ # Enable the timed task to clear invalid services. Default 1 minute
+eureka.server.eviction-interval-timer-in-ms= 60000
+ # How long, clear expired delta data
+eureka.server.delta-retention-timer-interval-in-ms=0
+ # , is it also available to the client?
+eureka.server.disable-delta=false
+ #eureka Whether the server records the identity of the client header
+eureka.server.log-identity-headers=true
+ #Request frequency limiter
+eureka.server.rate-limiter-burst-size=10
+ # Whether to enable the request frequency limiter
+eureka.server.rate-limiter-enabled=false
+ #Request frequency average
+eureka.server.rate-limiter-full-fetch-average-rate=100
+ # Whether to limit the frequency request to the standard client. If false, only limit non-standard clients
+eureka.server.rate-limiter-throttle-standard-clients=false
+ #Register service, average value of request frequency for pulling service list data
+eureka.server.rate-limiter-registry-fetch-average-rate=500
+ #Set the trusted client list
+eureka.server.rate-limiter-privileged-clients=
+ # In the set time range class, the percentage expected to be renewed with the client.
+eureka.server.renewal-percent-threshold=0.85
+ #How long to update the renewal threshold
+eureka.server.renewal-threshold-update-interval-ms=0
+ #How long does it take for cached registration data to expire?
+eureka.server.response-cache-auto-expiration-in-seconds=180
+ #How long to update the service registration data in the cache
+eureka.server.response-cache-update-interval-ms=0
+ #Cache the time of the incremental data so that no information is lost when searching
+eureka.server.retention-time-in-m-s-in-delta-queue=0
+ #When the timestamps are inconsistent, whether to synchronize
+eureka.server.sync-when-timestamp-differs=true
+ # Whether to adopt a read-only cache policy, the read-only policy does not expire for cached data.
+eureka.server.use-read-only-response-cache=true
+ 
+ ################server Customized Implementation Configuration####################33
+ #json's implementation class name for conversion
+eureka.server.json-codec-name=
+#PropertyResolver
+eureka.server.property-resolver=
+ #eureka server xml codec implementation name
+eureka.server.xml-codec-name=
+ 
+ ################Association between server node and node####################33
+ #  replication data is in the request, always compressed
+eureka.server.enable-replicated-request-compression=false
+ # Indicates whether replication between cluster nodes should be batched to improve network efficiency.
+eureka.server.batch-replication=false
+ #Allow the maximum number of replication events that are backed up to the backup pool. This backup pool is responsible for other events except status updates. This value can be set according to memory size, timeout and replication traffic.
+eureka.server.max-elements-in-peer-replication-pool=10000
+ #Allow the maximum number of replication events that are backed up to the stateful backup pool
+eureka.server.max-elements-in-status-replication-pool=10000
+ #Multiple service centers synchronize the maximum idle time of information threads with each other
+eureka.server.max-idle-thread-age-in-minutes-for-peer-replication=15
+ #Status synchronization thread maximum idle time
+eureka.server.max-idle-thread-in-minutes-age-for-status-replication=15
+ #Service registry each instance of the maximum number of threads to copy data to each other
+eureka.server.max-threads-for-peer-replication=20
+ #Service registry each instance of the maximum number of threads copying state data
+eureka.server.max-threads-for-status-replication=1
+ Communication time between #instance and data replication
+eureka.server.max-time-for-replication=30000
+# The minimum number of normal peer-to-peer services. -1 indicates that the service center is a single node.
+eureka.server.min-available-instances-for-peer-replication=-1
+ The minimum number of threads opened between #instance and mutual replication
+eureka.server.min-threads-for-peer-replication=5
+ Between #instance for state replication, the minimum number of threads opened
+eureka.server.min-threads-for-status-replication=1
+ Number of times that can be retried when copying data between #instance
+eureka.server.number-of-replication-retries=5
+ #eureka How often to update data between nodes. The default is 10 minutes.
+eureka.server.peer-eureka-nodes-update-interval-ms=600000
+ #eureka The time interval between service status updates.
+eureka.server.peer-eureka-status-refresh-time-interval-ms=0
+ #eureka Peer-to-peer connection timeout
+eureka.server.peer-node-connect-timeout-ms=200
+ #eureka idle time after peer node connection
+eureka.server.peer-node-connection-idle-timeout-seconds=30
+ #Read data connection timeout between nodes
+eureka.server.peer-node-read-timeout-ms=200
+ #eureka server Total number of connections between nodes
+eureka.server.peer-node-total-connections=1000
+ #eureka server Maximum number of single machines connected between nodes
+eureka.server.peer-node-total-connections-per-host=10
+ #The number of times eureka tried to obtain registration information when the service node was started
+eureka.server.registry-sync-retries=
+ # When eureka tries to obtain registration information multiple times when the service node starts up
+eureka.server.registry-sync-retry-wait-ms=
+ # When the eureka server is started, you cannot wait for the instance registration information from the peer node. How long should it wait?
+eureka.server.wait-time-in-ms-when-sync-empty=0
+ 
+ ################server Configuration associated with remote####################33
+ # , is it also provided to the remote region?
+eureka.server.disable-delta-for-remote-regions=false
+ #Old behavior of the application that is rolled back to the remote zone (if configured) If there is no instance of the application in the local zone, it will be disabled.
+eureka.server.disable-transparent-fallback-to-other-region=false
+ # Indicates whether the content obtained from the Eureka server must be compressed for the remote zone if the server supports it.
+eureka.server.g-zip-content-from-remote-region=true
+ #Connection eureka remote note connection timeout
+eureka.server.remote-region-connect-timeout-ms=1000
+ #remote region Application whitelist
+eureka.server.remote-region-app-whitelist.
+ #Connect eureka remote note connection idle time
+eureka.server.remote-region-connection-idle-timeout-seconds=30
+ #Executing remote region The request thread pool size for obtaining registration information
+eureka.server.remote-region-fetch-thread-pool-size=20
+ #remote region Timeout from reading data from peer eureka
+eureka.server.remote-region-read-timeout-ms=1000
+ #Time interval for obtaining registration information from remote region
+eureka.server.remote-region-registry-fetch-interval=30
+ #remote region The total number of connections connecting eureka nodes
+eureka.server.remote-region-total-connections=1000
+ #remote region The number of stand-alone connections connecting eureka nodes
+eureka.server.remote-region-total-connections-per-host=50
+ #remote region fetches the storage file of the registration information, and this reliable storage file needs a fully qualified name to specify
+eureka.server.remote-region-trust-store=
+ #remote region Password of the stored file
+eureka.server.remote-region-trust-store-password=
+ #remote region url. separated by multiple commas
+eureka.server.remote-region-urls=
+ #remote region url. separated by multiple commas
+eureka.server.remote-region-urls-with-name.
+ 
+################server Configuration associated with ASG/AWS/EIP/route52################### #33
+ #Cache the expiration time of ASG information.
+eureka.server.a-s-g-cache-expiry-timeout-ms=0
+ #Query the timeout time of ASG information.
+eureka.server.a-s-g-query-timeout-ms=300
+ #Service update ASG information frequency
+eureka.server.a-s-g-update-interval-ms=0
+ #AWSAccess ID
+eureka.server.a-w-s-access-id=
+ #AWSSecurity Key
+eureka.server.a-w-s-secret-key=
+ #AWSbinding strategy
+eureka.server.binding-strategy=eip
+ #Use the name of the role that automatically extends the grouping from a third-party AWS account description.
+eureka.server.list-auto-scaling-groups-role-name=
+ #Whether should establish a connection guide
+eureka.server.prime-aws-replica-connections=true
+ #Number of times the server tries to bind candidate EIPs
+eureka.server.e-i-p-bind-rebind-retries=3
+ # The time interval at which the server binds the EIP. If the binding is checked, it is re-bound if the binding fails. If and only if it is already bound
+eureka.server.e-i-p-binding-retry-interval-ms=10
+ #Time interval at which the server binds EIP. If and only if the service is bound
+eureka.server.e-i-p-binding-retry-interval-ms-when-unbound=
+ #The number of times the server tries to bind route53
+eureka.server.route53-bind-rebind-retries=3
+ #Servlet interval how long to try to bind route53
+eureka.server.route53-binding-retry-interval-ms=30
+#
+eureka.server.route53-domain-t-t-l=10
+
+
+
+
+Eureka Instacen configuration
+
+
+
+#Hostname of the service registry instance
+eureka.instance.hostname=localhost
+ #Register the application group name in the Eureka service
+eureka.instance.app-group-name=
+ #Register the application name in the Eureka service
+eureka.instance.appname=
+ # Unique ID of the instance registered to the service center
+eureka.instance.instance-id=
+ #IP address of the instance
+eureka.instance.ip-address=
+ #Instance, whether IP is preferred over hostname
+eureka.instance.prefer-ip-address=false
+ 
+ #Group name associated with this instance for automatic extension of the AWS platform,
+eureka.instance.a-s-g-name=
+ #Deploy the data center for this instance
+eureka.instance.data-center-info=
+ #Default address resolution order
+eureka.instance.default-address-resolution-order=
+ #Instance environment configuration
+eureka.instance.environment=
+ #Initialize the instance and register to the initial state of the service center
+eureka.instance.initial-status=up
+ # Indicate whether as long as this instance is registered to the service center, immediately communicate
+eureka.instance.instance-enabled-onit=false
+ #The namespace of the service instance for finding attributes
+eureka.instance.namespace=eureka
+ #The child definition metadata of the service instance can be accepted by the service center.
+eureka.instance.metadata-map.test = test
+ 
+ #Service center deletes the waiting time (in seconds) of this service instance, and the time interval is the heartbeat time received by the last service center.
+eureka.instance.lease-expiration-duration-in-seconds=90
+ # The interval at which the instance sends a heartbeat to the service center to indicate that the service instance is available.
+eureka.instance.lease-renewal-interval-in-seconds=30
+ #Instance, registration service center, the number of communication opened by default
+eureka.instance.registry.default-open-for-traffic-count=1
+ #Number of renewals per minute
+eureka.instance.registry.expected-number-of-renews-per-min=1
+ 
+ #Instance health check url, absolute path
+eureka.instance.health-check-url=
+ #Instance health check url, relative path
+eureka.instance.health-check-url-path=/health
+ #Instance's home page url, absolute path
+eureka.instance.home-page-url=
+ #Instance's home page url, relative path
+eureka.instance.home-page-url-path=/
+ #Instance security health check url, absolute path
+eureka.instance.secure-health-check-url=
+ #https 
+eureka.instance.secure-port=443
+ #httpsCommunication port is enabled
+eureka.instance.secure-port-enabled=false
+ #http 
+eureka.instance.non-secure-port=80
+ #httpCommunication port is enabled
+eureka.instance.non-secure-port-enabled=true
+ #Security virtual host name (https) for this instance
+eureka.instance.secure-virtual-host-name=unknown
+ #Virtual host name of this instance (http)
+eureka.instance.virtual-host-name=unknown
+ #The status of the instance is rendered url, absolute path
+eureka.instance.status-page-url=
+ #The status of the instance is rendered url, relative path
+eureka.instance.status-page-url-path=/status
+
+
+
+
+Eureka Client Configuration
+
+
+#This client is available
+eureka.client.enabled=true
+#Instance Whether to register your own information on the eureka server for other services to discover, the default is true
+eureka.client.register-with-eureka=false
+ #This client gets the registration information on the eureka server registry, the default is true
+eureka.client.fetch-registry=false
+ # Whether to filter out, non-UP instances. Default is true
+eureka.client.filter-only-up-instances=true
+ # zone and url address with Eureka Registration Service Center
+eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
+ 
+ #client is the idle waiting time after connecting to the Eureka server. The default is 30 seconds.
+eureka.client.eureka-connection-idle-timeout-seconds=30
+ #client connects to eureka server connection timeout, the default is 5 seconds
+eureka.client.eureka-server-connect-timeout-seconds=5
+ #clientRead timeout for the server
+eureka.client.eureka-server-read-timeout-seconds=8
+ #clientConnection all eureka server total number of connections, the default 200
+eureka.client.eureka-server-total-connections=200
+ #clientConnect to the number of single-machine connections on the eureka server. The default is 50.
+eureka.client.eureka-server-total-connections-per-host=50
+ #Executive index rollback refresh related attribute, which is the maximum multiple of the retry delay, the default is 10
+eureka.client.cache-refresh-executor-exponential-back-off-bound=10
+ #Execution program cache refresh thread pool size, the default is 5
+eureka.client.cache-refresh-executor-thread-pool-size=2
+ # Execution program rollback related attributes, which is the maximum multiple of the retry delay. The default is 10
+eureka.client.heartbeat-executor-exponential-back-off-bound=10
+ # Execution program thread pool size, the default is 5
+eureka.client.heartbeat-executor-thread-pool-size=5
+ # Ask the frequency (s) of the Eureka service url information change, the default is 300 seconds
+eureka.client.eureka-service-url-poll-interval-seconds=300
+ #The time (s) required to initially copy the instance information to the eureka server. The default is 40 seconds.
+eureka.client.initial-instance-info-replication-interval-seconds=40
+ #How long does it take to copy the instance information to the eureka server again, the default is 30 seconds?
+eureka.client.instance-info-replication-interval-seconds=30
+ #Time interval (s) from the eureka server registry to obtain registration information, the default is 30 seconds
+eureka.client.registry-fetch-interval-seconds=30
+ 
+ # Get the region where the instance is located. The default is us-east-1
+eureka.client.region=us-east-1
+ #Instance Whether to use the eureka server in the same zone, the default is true. Ideally, the eureka client and server are in the same zone.
+eureka.client.prefer-same-zone-eureka=true
+ # Get a list of available areas in the region where the instance is located, separated by commas. (AWS)
+eureka.client.availability-zones.china=defaultZone,defaultZone1,defaultZone2
+ The list of comma-separated regions in the #eureka service registry information. If you do not return these regions, the client will start up with errors. The default is null
+eureka.client.fetch-remote-regions-registry=
+ #Server is able to redirect client requests to the backup server. If set to false, the server will process the request directly, and if set to true, it may send an HTTP redirect to the client. Default is false
+eureka.client.allow-redirects=false
+ # 
+eureka.client.client-data-accept=
+ #Incremental information can be provided to the client, the default is false
+eureka.client.disable-delta=false
+ The #eureka server serialization/deserialization information obtains the replacement string of the "_" symbol. The default is"__" 
+eureka.client.escape-char-replacement=__
+ The #eureka server serialization/deserialization information obtains a replacement string for the "$" symbol. The default is"_-"
+eureka.client.dollar-replacement="_-"
+#When the server supports compression, whether to support the information obtained from the server for compression. Default is true
+eureka.client.g-zip-content=true
+ # Whether to record the difference between the information in the registry between the eureka server and the client, the default is false
+eureka.client.log-delta-diff=false
+ # If set to true, the client's status update will be updated on-demand to the remote server. The default is true.
+eureka.client.on-demand-update-status-change=true
+ #This client is only interested in information about a single VIP registry. The default is null
+eureka.client.registry-refresh-single-vip-address=
+ #client is forced to register to the service center during the initialization phase, the default is false
+eureka.client.should-enforce-registration-at-init=false
+ #clientWhen the shutdown is displayed, the logout service is displayed from the service center. The default is true.
+eureka.client.should-unregister-on-shutdown=true
+ 
+ # Get the proxy host of the eureka service, the default is null
+eureka.client.proxy-host=
+ #Get the proxy password of the eureka service, the default is null
+eureka.client.proxy-password=
+ # Get the proxy port of the eureka service, the default is null
+eureka.client.proxy-port=
+ # Get the proxy username of the eureka service, the default is null
+eureka.client.proxy-user-name=
+ 
+ #Attribute interpreter
+eureka.client.property-resolver=
+ #Get the implementation name of the fallback option when the eureka client reads the registry at the first startup.
+eureka.client.backup-registry-impl=
+ # ×××Configuration, if the latest XXX is stable, it can be removed, the default is null
+eureka.client.decoder-name=
+ # , if the latest encoder is stable, it can be removed, the default is null
+eureka.client.encoder-name=
+ 
+ # Whether to use the DNS mechanism to get a list of services and then communicate. Default is false
+eureka.client.use-dns-for-fetching-service-urls=false
+ #Get the DNS name to be queried to get the eureka server. This configuration is only used when the eureka server ip address list is in the DNS. The default is null
+eureka.client.eureka-server-d-n-s-name=
+ #Get the port of the eureka server. This configuration is only used when the eureka server ip address list is in the DNS. The default is null
+eureka.client.eureka-server-port=
+ # indicates the path of the eureka registration center. If it is configured as eureka, it is http://x.x.x.x:x/eureka/. Adding this configuration to the eureka configuration file indicates that eureka is registered as a client to the registration center to form an eureka cluster. This configuration is only used in the DNS address list of the eureka server. The default is null.
+eureka.client.eureka-server-u-r-l-context=
+
